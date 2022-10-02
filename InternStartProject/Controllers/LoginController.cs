@@ -71,7 +71,6 @@ namespace InternStartProject.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(p.username, p.password, false, true);
-                //var result = await _signInManager.PasswordSignInAsync(p.username, p.password,false,true);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Profile", "Admin");

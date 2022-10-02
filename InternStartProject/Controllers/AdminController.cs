@@ -80,11 +80,9 @@ namespace InternStartProject.Controllers
 
             try
             {
-                // Creates an HttpWebRequest for the specified URL.
                 HttpWebRequest httreq = (HttpWebRequest)WebRequest.Create(pingUrl);
                 httreq.AllowAutoRedirect = false;
 
-                // Sends the HttpWebRequest and waits for a response.
                 HttpWebResponse httpResponse = (HttpWebResponse)httreq.GetResponse();
 
 
@@ -100,15 +98,15 @@ namespace InternStartProject.Controllers
                 pingManager.TAdd(ping);
                 httpResponse.Close();
             }
-            catch (WebException e)
-            {
-                var pingStatusCode = (int)e.Status;
-                ping.PingStatusCode = pingStatusCode.ToString();
-                var pingDescription = e.Status;
-                ping.PingDescription = pingDescription.ToString();
-                pingManager.TAdd(ping);
+            //catch (WebException e)
+            //{
+            //    var pingStatusCode = (int)e.Status;
+            //    ping.PingStatusCode = pingStatusCode.ToString();
+            //    var pingDescription = e.Status;
+            //    ping.PingDescription = pingDescription.ToString();
+            //    pingManager.TAdd(ping);
 
-            }
+            //}
             catch (Exception e)
             {
                 var pingDescription = e.Message;
@@ -155,9 +153,6 @@ namespace InternStartProject.Controllers
             aTimer.Interval = 120000;
             aTimer.Enabled = true;
 
-            Console.WriteLine("Press \'q\' to quit the sample.");
-            while (Console.Read() != 'q') ;
-
 
             return RedirectToAction("Profile");
         }
@@ -170,7 +165,7 @@ namespace InternStartProject.Controllers
 
         public static void Loggings()
         {
-
+            
 
             PingManager pingManager = new PingManager(new EfPingDal());
             LogManager logManager = new LogManager(new EfLogDal());
@@ -220,7 +215,7 @@ namespace InternStartProject.Controllers
 
 
         [HttpGet]
-        public  async Task <IActionResult> LoggingView()
+        public async Task<IActionResult> LoggingView()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
